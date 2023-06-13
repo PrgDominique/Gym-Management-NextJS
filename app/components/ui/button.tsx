@@ -1,7 +1,11 @@
 type hasButton = {
-  name: string | number;
+  name: string;
 };
 
 export const Button = ({ name }: hasButton) => {
-  return <h1>{name}</h1>;
+  return (
+    <div>
+      <button className='rounded-full w-5 h-5 bg-slate-500'>{name}</button>
+    </div>
+  );
 };

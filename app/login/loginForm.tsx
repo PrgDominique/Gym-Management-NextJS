@@ -1,9 +1,9 @@
-import { Button } from '../components/ui/button'
+import { Button } from '../components/ui/button';
 
-export const LoginForm = ({ props }) => {
+export const LoginForm = () => {
   return (
     <div>
-      <Button name={23} />
+      <Button name="Login" />
     </div>
-  )
-}
+  );
+};
