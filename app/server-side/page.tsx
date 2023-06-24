@@ -14,7 +14,7 @@ const query = gql`
 `
 
 interface Countries {
-  country: { code: string; name: string; emoji: string }[]
+  countries: { code: string; name: string; emoji: string }[]
 }
 
 export default async function ServerSide() {
