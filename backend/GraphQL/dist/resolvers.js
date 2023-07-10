@@ -1,12 +1,8 @@
-import { UserName } from './model.js';
-import { createUser } from './mutation/createUser.js';
+import mutationResolvers from './mutationResolvers.js';
+import queryResolvers from './queryResolvers.js';
 // Resolver map
 const resolvers = {
-    Query: {
-        username: async () => await UserName.find(),
-    },
-    Mutation: {
-        createUserName: async (_, { name, age }) => createUser(name, age),
-    },
+    Query: queryResolvers,
+    Mutation: mutationResolvers,
 };
 export default resolvers;
