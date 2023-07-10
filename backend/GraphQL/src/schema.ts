@@ -2,6 +2,7 @@ const typeDefs = `#graphql
 
   type User {
     name: String!
+    password: String!
   }
 
   type Users {
@@ -17,6 +18,7 @@ const typeDefs = `#graphql
 
   type Mutation {
     createUserName(name: String!, age: Int!): Users
+    Signup(name: String!, password: String): User
   }
 
   `

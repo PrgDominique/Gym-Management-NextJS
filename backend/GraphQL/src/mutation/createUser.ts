@@ -1,8 +1,8 @@
-import { UserName } from '../model.js'
+import { Users } from '../model.js'
 
-export const createUser = async (name: String, age: Number) => {
+export const createUser = async (name: String, password: String) => {
   try {
-    const username = await new UserName({ name, age })
+    const username = await new Users({ name, password })
     await username.save()
     return username
   } catch (error) {

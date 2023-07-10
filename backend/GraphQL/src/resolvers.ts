@@ -1,4 +1,3 @@
-import { UserName } from './model.js'
 import mutationResolvers from './mutationResolvers.js'
 import queryResolvers from './queryResolvers.js'
 

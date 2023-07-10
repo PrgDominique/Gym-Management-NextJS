@@ -1,7 +1,7 @@
-import { UserName } from './model.js'
+import { Users } from './model.js'
 
 const queryResolvers = {
-  username: async () => await UserName.find(),
+  users: async () => await Users.find(),
 }
 
 export default queryResolvers

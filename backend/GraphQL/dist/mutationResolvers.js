@@ -1,5 +1,5 @@
 import { createUser } from './mutation/createUser.js';
 const mutationResolvers = {
-    createUserName: async (_, { name, age }) => createUser(name, age),
+    Signup: async (_, { name, password }) => createUser(name, password),
 };
 export default mutationResolvers;
