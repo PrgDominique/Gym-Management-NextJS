@@ -5,30 +5,29 @@ export const dynamic = 'force-dynamic'
 
 const query = gql`
   query {
-    countries {
-      code
+    username {
+      id
       name
-      emoji
+      age
     }
   }
 `
 
 interface Countries {
-  countries: { code: string; name: string; emoji: string }[]
+  username: { id: string; name: string; age: string }[]
 }
 
 export default async function ServerSide() {
   const data = await getClient().query<Countries>({ query })
-  const countries = data.data.countries.slice(0, 5)
-  console.log(countries)
+  const username = data.data.username.slice(0, 1)
+  console.log(data.data.username)
 
   return (
     <h1>
-      {countries.map((item, i) => (
+      {username.map((item, i) => (
         <div key={i}>
-          <h1>{item.code}</h1>
-          <h1>{item.name}</h1>
-          <h1>{item.emoji}</h1>
+          <h1>name: {item.name}</h1>
+          <h1>age: {item.age}</h1>
         </div>
       ))}
     </h1>
