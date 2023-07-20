@@ -1,90 +1,92 @@
 'use client'
 
-import { gql, useMutation } from '@apollo/client'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { useMutation } from '@apollo/client'
+import { FormEvent, useState } from 'react'
+import { TextField } from '../components/ui/textfield'
+import { Button } from '../components/ui/button'
+import { signUp } from '../common/mutation/signup'
 
-interface User {
-  id: string
-  name: string
-  password: string
-}
+// interface User {
+//   firstname: string
+//   password: string
+// }
 
-interface SignupData {
-  Signup: User
-}
+// interface SignupData {
+//   Signup: User
+// }
 
 interface SignupVariables {
-  name: string
+  firstname: string
+  lastname: string
+  email: string
   password: string
 }
 
 export default function Register() {
-  const signUp = gql`
-    mutation Mutation($name: String!, $password: String!) {
-      Signup(name: $name, password: $password) {
-        id
-        name
-        password
-      }
-    }
-  `
 
-  const [SignupMutation, { data, loading, error }] = useMutation<
-    SignupData,
-    SignupVariables
-  >(signUp)
-  const [userName, setUsername] = useState('')
+
+  const [SignupMutation, { loading, error }] =
+    useMutation<SignupVariables>(signUp)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   if (error) return `Submission error ${error.message}`
   if (loading) return <h1>Loading ...</h1>
 
-  // console.log(data)
-  // console.log(loading)
-  // console.log(error)
-
+  const checkPassword = () => {
+    if (password !== confirmPassword) {
+      return 'your password is not match'
+    }
+  }
   const handleSignUp = (e: FormEvent) => {
-    e.preventDefault() // Prevent the default form submission
-    SignupMutation({
-      variables: {
-        name: userName,
-        password: password,
-      },
-    })
+    try {
+      checkPassword()
+      e.preventDefault() // Prevent the default form submission
+      SignupMutation({
+        variables: {
+          firstname: firstName,
+          lastname: lastName,
+          email: email,
+          password: password,
+        },
+      })
+    } catch (error) {}
   }
 
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value)
-  }
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }
   return (
     <div className='h-100 my-40'>
       <div className='flex justify-center '>
         <h1 className=''>Register</h1>
         <div className='grid grid-cols-2 w-60 h-28 my-16'>
           <form onSubmit={handleSignUp}>
-            <div>Username: </div>
-            <input
-              className='border-2 rounded-md border-slate-800 h-8 w-48'
-              value={userName}
-              onChange={handleUsernameChange}
+            <TextField
+              name='First name'
+              onChange={(e) => setFirstName(e.target.value)}
             />
-            <div>Password: </div>
-            <input
-              className='border-2 rounded-md border-slate-800 h-8 w-48'
+            <TextField
+              name='Last name'
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <TextField
+              name='Email'
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <TextField
+              name='Password'
+              onChange={(e) => setPassword(e.target.value)}
               type='password'
-              value={password}
-              onChange={handlePasswordChange}
             />
-            <button
-              className='rounded-l-lg bg-sky-400 grid-cols-2'
-              onClick={handleSignUp}
-            >
-              Submit
-            </button>
+            <TextField
+              name='Confirm Password'
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              type='password'
+            />
+
+            <Button name='Sign up' type='submit' />
           </form>
         </div>
       </div>

@@ -7,14 +7,16 @@ import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr'
 const query = gql`
   query {
     users {
-      name
+      firstname
+      lastname
+      email
       password
     }
   }
 `
 
 interface User {
-  users: { name: string; password: string }[]
+  users: { firstname: string; lastname: string; email: string; password: string }[]
 }
 
 export default function ServerSide() {
@@ -28,7 +30,9 @@ export default function ServerSide() {
     <h1>
       {username.map((item, i) => (
         <div key={i}>
-          <h1>name: {item.name}</h1>
+          <h1>name: {item.firstname}</h1>
+          <h1>name: {item.lastname}</h1>
+          <h1>name: {item.email}</h1>
           <h1>password: {item.password}</h1>
         </div>
       ))}
